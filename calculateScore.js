@@ -5,9 +5,9 @@ const EASY = 2;
 const PLUS_BAD = 1;
 const PLUS_REGULAR = 0.5;
 const PLUS_GOOD = 0;
-const MINUS_BAD = 2;
-const MINUS_REGULAR = 1.5;
-const MINUS_GOOD = 1;
+const MINUS_BAD = -2;
+const MINUS_REGULAR = -1.5;
+const MINUS_GOOD = -1;
 
 const NO_EXTRA = 0;
 const EXTRA = 1;
@@ -31,29 +31,29 @@ module.exports = function(score, plusMinus, difficulty){
 		}
 
     if (plusMinus == "plus"){
-      if(color == "red" ||
-         color == "orange" ||
-         color == "yellow"){
+      if(colour == "red" ||
+         colour == "orange" ||
+         colour == "yellow"){
            extra = NO_EXTRA;
            mult = PLUS_BAD;
-      }else if(color == "green"){
+      }else if(colour == "green"){
            extra = NO_EXTRA;
            mult = PLUS_REGULAR;
-      }else if(color == "blue"){
+      }else if(colour == "blue"){
            extra = EXTRA;
            mult = PLUS_GOOD;
       }
     }else if(plusMinus == "minus"){
-      if(color == "red"){
+      if(colour == "red"){
            extra = NO_EXTRA;
            mult = MINUS_BAD;
-      }else if(color == "orange"){
+      }else if(colour == "orange"){
            extra = NO_EXTRA;
            mult = MINUS_REGULAR;
       }else if
-        (color == "yellow" ||
-         color == "green" ||
-         color == "blue"){
+        (colour == "yellow" ||
+         colour == "green" ||
+         colour == "blue"){
            extra = NO_EXTRA;
            mult = MINUS_GOOD;
       }
@@ -68,5 +68,16 @@ module.exports = function(score, plusMinus, difficulty){
     }
 
     score = score + (mult * how_hard) + extra;
-
+    if (score < 0){
+  		colour = "red";
+  	} else if (0 <= score && score < 11){
+			colour = "orange";
+  	} else if (10 < score && score < 41 ){
+  		colour = "yellow";
+  	} else if (40 < score && score < 51){
+		  colour = "green";
+	  } else {
+  		colour = "blue";
+  	}
+    return [score, colour]
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-
+var calculateScore = require('../../calculateScore.js');
 var mongoose = require('mongoose'),
   Habit = mongoose.model('Habits');
 
@@ -40,7 +40,15 @@ exports.read_a_habit = function(req, res) {
 
 
 exports.update_a_habit = function(req, res) {
-  Task.findOneAndUpdate({email:req.query.email, title:req.query.title}, req.body, {new: true}, function(err, habit) {
+  Habit.findOneAndUpdate({email:req.query.email, title:req.query.title}, req.body, {new: true}, function(err, habit) {
+    if (err)
+      res.send(err);
+    res.json(habit);
+  });
+};
+
+exports.update_a_habit_score = function (req, res) {
+  Habit.update({email:req.query.email, title:req.query.title}, {score : calculateScore(req.body.score, req.body.plusMinus, req.body.difficulty)[0], colour : calculateScore(req.body.score, req.body.plusMinus, req.body.difficulty)[1]}, function(err, habit) {
     if (err)
       res.send(err);
     res.json(habit);

@@ -19,6 +19,9 @@ var HabitSchema = new Schema({
     type: Number,
     required: 'Score for Habit'
   },
+  colour: {
+    type: String
+  },
   difficulty: {
     type: [{
       type: String,
