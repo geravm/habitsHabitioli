@@ -40,12 +40,13 @@ exports.read_a_habit = function(req, res) {
 
 
 exports.update_a_habit = function(req, res) {
-  Habit.findOneAndUpdate({_id: req.params.habitId}, req.body, {new: true}, function(err, habit) {
+  Task.findOneAndUpdate({email:req.query.email, title:req.query.title}, req.body, {new: true}, function(err, habit) {
     if (err)
       res.send(err);
     res.json(habit);
   });
 };
+
 
 
 exports.delete_a_habit = function(req, res) {
