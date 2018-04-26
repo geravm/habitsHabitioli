@@ -55,7 +55,15 @@ exports.update_a_habit_score = function (req, res) {
   });
 };
 
-
+exports.delete_all_habits_for_user = function(req, res){
+  Habit.deleteMany({
+    email:req.query.email
+  },function(err, habit) {
+    if (err)
+      res.send(err);
+    res.json({ message: 'Habits successfully deleted' });
+  });
+}
 
 exports.delete_a_habit = function(req, res) {
   Habit.remove({

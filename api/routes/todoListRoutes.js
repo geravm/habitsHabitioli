@@ -12,10 +12,12 @@ module.exports = function(app) {
   app.route('/habit/score')
     .put(todoList.update_a_habit_score);
 
+  app.route('/habit/user/delete')
+    .delete(todoList.delete_all_habits_for_user);
+
   app.route('/habit')
     .post(todoList.create_a_habit)
     .get(todoList.read_a_habit)
     .put(todoList.update_a_habit)
-    //.put(todoList.update_a_habit_score)
     .delete(todoList.delete_a_habit);
 };
